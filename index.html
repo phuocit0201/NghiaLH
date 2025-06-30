@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trái Tim Pháo Hoa</title>
+    <title>Pháo Hoa Trái Tim</title>
     <style>
         * {
             margin: 0;
@@ -27,63 +27,82 @@
             z-index: 1;
         }
 
-        .heart-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-            animation: heartBeat 2s ease-in-out infinite;
-        }
-
-        .heart {
-            width: 300px;
-            height: 270px;
-            position: relative;
-            transform: rotate(-45deg);
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e, #ffa8a8);
-            border-radius: 50px 50px 0 50px;
-            box-shadow: 
-                0 0 50px rgba(255, 107, 107, 0.8),
-                inset 0 0 50px rgba(255, 255, 255, 0.2);
-            animation: heartGlow 3s ease-in-out infinite alternate;
-        }
-
-        .heart:before,
-        .heart:after {
-            content: '';
-            width: 150px;
-            height: 240px;
-            position: absolute;
-            left: 150px;
-            transform: rotate(-45deg);
-            transform-origin: 0 100%;
-            border-radius: 150px 150px 0 0;
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e, #ffa8a8);
-            box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.2);
-        }
-
-        .heart:after {
+        #heart-canvas {
+            position: fixed;
+            top: 0;
             left: 0;
-            transform: rotate(45deg);
-            transform-origin: 100% 100%;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
         }
 
-        .heart-image {
+        .title {
             position: absolute;
-            top: 50%;
+            top: 10%;
             left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: url('./images/NghiaVaTuyen.png') center/cover;
-            border: 5px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 
-                0 0 30px rgba(255, 255, 255, 0.6),
-                inset 0 0 20px rgba(0, 0, 0, 0.2);
-            animation: imageFloat 4s ease-in-out infinite;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 3rem;
+            text-align: center;
             z-index: 3;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            animation: titleGlow 2s ease-in-out infinite alternate;
+            opacity: 0;
+        }
+
+        @keyframes titleGlow {
+            0% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            }
+            100% {
+                text-shadow: 
+                    0 0 30px rgba(255, 255, 255, 1),
+                    0 0 40px rgba(255, 107, 107, 0.8);
+            }
+        }
+
+        .launch-trail {
+            position: absolute;
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(to top, #ff6b6b, #ffd700);
+            border-radius: 2px;
+            box-shadow: 0 0 10px #ff6b6b;
+        }
+
+        .heart-text {
+            text-align: center;
+            width: 300px;
+            position: absolute;
+            top: 42%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff1493;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 
+                0 0 10px #ff1493,
+                0 0 20px #ff1493,
+                0 0 30px #ff1493;
+            animation: heartTextGlow 2s ease-in-out infinite alternate;
+            z-index: 3;
+            opacity: 0;
+        }
+
+        @keyframes heartTextGlow {
+            0% {
+                text-shadow: 
+                    0 0 10px #ff1493,
+                    0 0 20px #ff1493,
+                    0 0 30px #ff1493;
+            }
+            100% {
+                text-shadow: 
+                    0 0 15px #ff1493,
+                    0 0 25px #ff1493,
+                    0 0 35px #ff1493,
+                    0 0 45px #ff1493;
+            }
         }
 
         .floating-hearts {
@@ -104,57 +123,6 @@
             opacity: 0;
         }
 
-        .sparkles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .sparkle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #ffd700;
-            border-radius: 50%;
-            animation: sparkle 2s linear infinite;
-        }
-
-        @keyframes heartBeat {
-            0%, 50%, 100% {
-                transform: translate(-50%, -50%) scale(1);
-            }
-            25%, 75% {
-                transform: translate(-50%, -50%) scale(1.1);
-            }
-        }
-
-        @keyframes heartGlow {
-            0% {
-                box-shadow: 
-                    0 0 50px rgba(255, 107, 107, 0.8),
-                    inset 0 0 50px rgba(255, 255, 255, 0.2);
-            }
-            100% {
-                box-shadow: 
-                    0 0 80px rgba(255, 107, 107, 1),
-                    0 0 120px rgba(255, 107, 107, 0.6),
-                    inset 0 0 50px rgba(255, 255, 255, 0.3);
-            }
-        }
-
-        @keyframes imageFloat {
-            0%, 100% {
-                transform: translate(-50%, -50%) rotate(45deg) translateY(0px);
-            }
-            50% {
-                transform: translate(-50%, -50%) rotate(45deg) translateY(-10px);
-            }
-        }
-
         @keyframes floatUp {
             0% {
                 opacity: 0;
@@ -171,91 +139,32 @@
                 transform: translateY(-100vh) rotate(360deg);
             }
         }
-
-        @keyframes sparkle {
-            0%, 100% {
-                opacity: 0;
-                transform: scale(0);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .title {
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #fff;
-            font-size: 3rem;
-            text-align: center;
-            z-index: 3;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-            animation: titleGlow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes titleGlow {
-            0% {
-                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-            }
-            100% {
-                text-shadow: 
-                    0 0 30px rgba(255, 255, 255, 1),
-                    0 0 40px rgba(255, 107, 107, 0.8);
-            }
-        }
-
-        .music-note {
-            position: absolute;
-            color: #ffd700;
-            font-size: 24px;
-            animation: musicFloat 8s linear infinite;
-            z-index: 2;
-        }
-
-        @keyframes musicFloat {
-            0% {
-                opacity: 0;
-                transform: translateY(100vh) rotate(0deg);
-            }
-            10%, 90% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-20px) rotate(360deg);
-            }
-        }
     </style>
 </head>
 <body>
     <canvas id="fireworks-canvas"></canvas>
+    <canvas id="heart-canvas"></canvas>
     
-    <div class="title">Hữu Nghĩa 💕 Phương Tuyến</div>
     
-    <div class="heart-container">
-        <div class="heart">
-            <div class="heart-image">
-            </div>
-        </div>
-    </div>
-
+    <div class="heart-text">I Love You Forever</div>
     <div class="floating-hearts" id="floating-hearts"></div>
-    <div class="sparkles" id="sparkles"></div>
 
-    <!-- Thư viện pháo hoa -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
     <script>
-        // Tạo pháo hoa với Canvas
+        // Canvas setup
         const canvas = document.getElementById('fireworks-canvas');
         const ctx = canvas.getContext('2d');
+        const heartCanvas = document.getElementById('heart-canvas');
+        const heartCtx = heartCanvas.getContext('2d');
         
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        heartCanvas.width = window.innerWidth;
+        heartCanvas.height = window.innerHeight;
 
+        let animationStarted = false;
+        let heartAnimationStarted = false;
+
+        // Particle class cho pháo hoa thường
         class Particle {
             constructor(x, y, color, velocity) {
                 this.x = x;
@@ -287,6 +196,7 @@
             }
         }
 
+        // Firework class
         class Firework {
             constructor(x, y) {
                 this.x = x;
@@ -294,7 +204,6 @@
                 this.particles = [];
                 this.colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff'];
                 
-                // Tạo nhiều hạt cho hiệu ứng đẹp hơn
                 for (let i = 0; i < 30; i++) {
                     const angle = (Math.PI * 2 * i) / 30;
                     const velocity = {
@@ -316,7 +225,399 @@
             }
         }
 
+        // Launch trail class
+        class LaunchTrail {
+            constructor() {
+                this.x = canvas.width / 2;
+                this.y = canvas.height;
+                this.targetY = canvas.height / 2;
+                this.speed = 8;
+                this.particles = [];
+                this.active = true;
+            }
+
+            update() {
+                if (this.active) {
+                    this.y -= this.speed;
+                    
+                    // Tạo trail particles
+                    for (let i = 0; i < 3; i++) {
+                        this.particles.push({
+                            x: this.x + (Math.random() - 0.5) * 4,
+                            y: this.y + Math.random() * 20,
+                            alpha: 1,
+                            decay: 0.02,
+                            color: `hsl(${Math.random() * 60 + 10}, 100%, 60%)`
+                        });
+                    }
+
+                    // Check if reached target
+                    if (this.y <= this.targetY) {
+                        this.active = false;
+                        this.explode();
+                    }
+                }
+
+                // Update trail particles
+                this.particles = this.particles.filter(particle => {
+                    particle.alpha -= particle.decay;
+                    return particle.alpha > 0;
+                });
+            }
+
+            draw() {
+                // Draw main trail
+                if (this.active) {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = '#ffd700';
+                    ctx.fill();
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = '#ffd700';
+                    ctx.restore();
+                }
+
+                // Draw trail particles
+                this.particles.forEach(particle => {
+                    ctx.save();
+                    ctx.globalAlpha = particle.alpha;
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = particle.color;
+                    ctx.fill();
+                    ctx.restore();
+                });
+            }
+
+                         explode() {
+                 // Tạo hiệu ứng tỏa ra và bắt đầu trái tim đồng thời
+                 this.createBurstEffect();
+                 
+                 // Bắt đầu heart animation ngay lập tức khi tỏa ra
+                 setTimeout(() => {
+                     startHeartAnimation();
+                 }, 200);
+                 
+                 // Show title and text after delay
+                 setTimeout(() => {
+                     document.querySelector('.title').style.opacity = '1';
+                     document.querySelector('.title').style.animation = 'titleGlow 2s ease-in-out infinite alternate';
+                 }, 600);
+
+                 setTimeout(() => {
+                     document.querySelector('.heart-text').style.opacity = '1';
+                     document.querySelector('.heart-text').style.animation = 'heartTextGlow 2s ease-in-out infinite alternate';
+                 }, 1000);
+
+                 // Start floating hearts
+                 setTimeout(() => {
+                     setInterval(createFloatingHeart, 800);
+                 }, 1400);
+
+                 // Start regular fireworks
+                 setTimeout(() => {
+                     setInterval(createFirework, 2000);
+                 }, 1800);
+             }
+
+             createBurstEffect() {
+                 // Tạo hiệu ứng flash sáng trước
+                 window.flashIntensity = 1;
+                 
+                 // Giảm dần flash
+                 const flashInterval = setInterval(() => {
+                     window.flashIntensity -= 0.05;
+                     if (window.flashIntensity <= 0) {
+                         window.flashIntensity = 0;
+                         clearInterval(flashInterval);
+                     }
+                 }, 16);
+
+                 // Tạo hiệu ứng tỏa tròn trước khi thành trái tim
+                 const burstParticles = [];
+                 const burstColors = ['#ffd700', '#ff6b6b', '#ff9ff3', '#54a0ff', '#feca57', '#ff1493'];
+                 
+                 // Tạo 80 particles tỏa ra theo hình tròn với nhiều layers
+                 for (let layer = 0; layer < 3; layer++) {
+                     for (let i = 0; i < 30; i++) {
+                         const angle = (Math.PI * 2 * i) / 30 + (layer * 0.1);
+                         const speed = Math.random() * 10 + 6 + (layer * 2);
+                         burstParticles.push({
+                             x: this.x,
+                             y: this.targetY,
+                             vx: Math.cos(angle) * speed,
+                             vy: Math.sin(angle) * speed,
+                             alpha: 1,
+                             decay: 0.012 + (layer * 0.003),
+                             size: Math.random() * 5 + 2 + layer,
+                             color: burstColors[Math.floor(Math.random() * burstColors.length)],
+                             trail: []
+                         });
+                     }
+                 }
+
+                 // Thêm particles vào để animate
+                 window.burstParticles = burstParticles;
+                 window.burstActive = true;
+
+                 // Tắt burst effect sau 800ms
+                 setTimeout(() => {
+                     window.burstActive = false;
+                 }, 800);
+             }
+        }
+
+        // Heart animation classes
+        class HeartParticle {
+            constructor() {
+                this.position = {x: 0, y: 0};
+                this.velocity = {x: 0, y: 0};
+                this.acceleration = {x: 0, y: 0};
+                this.age = 0;
+            }
+
+            initialize(x, y, dx, dy) {
+                this.position.x = x;
+                this.position.y = y;
+                this.velocity.x = dx;
+                this.velocity.y = dy;
+                this.acceleration.x = dx * -0.75;
+                this.acceleration.y = dy * -0.75;
+                this.age = 0;
+            }
+
+            update(deltaTime) {
+                this.position.x += this.velocity.x * deltaTime;
+                this.position.y += this.velocity.y * deltaTime;
+                this.velocity.x += this.acceleration.x * deltaTime;
+                this.velocity.y += this.acceleration.y * deltaTime;
+                this.age += deltaTime;
+            }
+
+            draw(context, image) {
+                function ease(t) {
+                    return (--t) * t * t + 1;
+                }
+                var size = image.width * ease(this.age / 2);
+                context.globalAlpha = 1 - this.age / 2;
+                context.drawImage(image, this.position.x - size / 2, this.position.y - size / 2, size, size);
+            }
+        }
+
+        // Heart particle pool
+        class HeartParticlePool {
+            constructor(length) {
+                this.particles = new Array(length);
+                for (var i = 0; i < this.particles.length; i++) {
+                    this.particles[i] = new HeartParticle();
+                }
+                this.firstActive = 0;
+                this.firstFree = 0;
+                this.duration = 2;
+            }
+
+            add(x, y, dx, dy) {
+                this.particles[this.firstFree].initialize(x, y, dx, dy);
+                this.firstFree++;
+                if (this.firstFree == this.particles.length) this.firstFree = 0;
+                if (this.firstActive == this.firstFree) this.firstActive++;
+                if (this.firstActive == this.particles.length) this.firstActive = 0;
+            }
+
+            update(deltaTime) {
+                var i;
+                if (this.firstActive < this.firstFree) {
+                    for (i = this.firstActive; i < this.firstFree; i++)
+                        this.particles[i].update(deltaTime);
+                }
+                if (this.firstFree < this.firstActive) {
+                    for (i = this.firstActive; i < this.particles.length; i++)
+                        this.particles[i].update(deltaTime);
+                    for (i = 0; i < this.firstFree; i++)
+                        this.particles[i].update(deltaTime);
+                }
+                while (this.particles[this.firstActive].age >= this.duration && this.firstActive != this.firstFree) {
+                    this.firstActive++;
+                    if (this.firstActive == this.particles.length) this.firstActive = 0;
+                }
+            }
+
+            draw(context, image) {
+                if (this.firstActive < this.firstFree) {
+                    for (var i = this.firstActive; i < this.firstFree; i++)
+                        this.particles[i].draw(context, image);
+                }
+                if (this.firstFree < this.firstActive) {
+                    for (var i = this.firstActive; i < this.particles.length; i++)
+                        this.particles[i].draw(context, image);
+                    for (var i = 0; i < this.firstFree; i++)
+                        this.particles[i].draw(context, image);
+                }
+            }
+        }
+
+        // Heart animation variables
+        let heartParticles;
+        let heartImage;
+        let heartTime;
+
+        function pointOnHeart(t) {
+            return {
+                x: 160 * Math.pow(Math.sin(t), 3),
+                y: 130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25
+            };
+        }
+
+        function createHeartImage() {
+            var canvas = document.createElement('canvas');
+            var context = canvas.getContext('2d');
+            canvas.width = 30;
+            canvas.height = 30;
+
+            function to(t) {
+                var point = pointOnHeart(t);
+                point.x = 15 + point.x * 15 / 350;
+                point.y = 15 - point.y * 15 / 350;
+                return point;
+            }
+
+            context.beginPath();
+            var t = -Math.PI;
+            var point = to(t);
+            context.moveTo(point.x, point.y);
+            while (t < Math.PI) {
+                t += 0.01;
+                point = to(t);
+                context.lineTo(point.x, point.y);
+            }
+            context.closePath();
+            context.fillStyle = '#ff1493';
+            context.fill();
+
+            var image = new Image();
+            image.src = canvas.toDataURL();
+            return image;
+        }
+
+        function startHeartAnimation() {
+            heartParticles = new HeartParticlePool(300);
+            heartImage = createHeartImage();
+            heartTime = new Date().getTime() / 1000;
+            heartAnimationStarted = true;
+        }
+
+        // Main animation variables
         let fireworks = [];
+        let launchTrail = new LaunchTrail();
+
+                 function animate() {
+             // Clear canvas
+             ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
+             ctx.fillRect(0, 0, canvas.width, canvas.height);
+             
+             heartCtx.clearRect(0, 0, heartCanvas.width, heartCanvas.height);
+
+             // Update and draw launch trail
+             if (launchTrail.active || launchTrail.particles.length > 0) {
+                 launchTrail.update();
+                 launchTrail.draw();
+             }
+
+             // Draw flash effect
+             if (window.flashIntensity > 0) {
+                 ctx.save();
+                 ctx.globalAlpha = window.flashIntensity * 0.8;
+                 ctx.fillStyle = '#ffffff';
+                 ctx.fillRect(0, 0, canvas.width, canvas.height);
+                 ctx.restore();
+             }
+
+             // Update and draw burst effect
+             if (window.burstActive && window.burstParticles) {
+                 window.burstParticles.forEach((particle, index) => {
+                     // Add to trail
+                     particle.trail.push({x: particle.x, y: particle.y, alpha: particle.alpha});
+                     if (particle.trail.length > 8) {
+                         particle.trail.shift();
+                     }
+
+                     // Update particle
+                     particle.x += particle.vx;
+                     particle.y += particle.vy;
+                     particle.vy += 0.08; // gravity
+                     particle.vx *= 0.99; // air resistance
+                     particle.vy *= 0.99;
+                     particle.alpha -= particle.decay;
+
+                     // Draw trail
+                     particle.trail.forEach((trailPoint, trailIndex) => {
+                         ctx.save();
+                         ctx.globalAlpha = trailPoint.alpha * (trailIndex / particle.trail.length) * 0.5;
+                         ctx.beginPath();
+                         ctx.arc(trailPoint.x, trailPoint.y, particle.size * 0.3, 0, Math.PI * 2);
+                         ctx.fillStyle = particle.color;
+                         ctx.fill();
+                         ctx.restore();
+                     });
+
+                     // Draw main particle
+                     ctx.save();
+                     ctx.globalAlpha = particle.alpha;
+                     ctx.beginPath();
+                     ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                     ctx.fillStyle = particle.color;
+                     ctx.fill();
+                     ctx.shadowBlur = 20;
+                     ctx.shadowColor = particle.color;
+                     ctx.restore();
+
+                     // Remove dead particles
+                     if (particle.alpha <= 0) {
+                         window.burstParticles.splice(index, 1);
+                     }
+                 });
+             }
+
+            // Update and draw heart animation
+            if (heartAnimationStarted) {
+                var newTime = new Date().getTime() / 1000;
+                var deltaTime = newTime - heartTime;
+                heartTime = newTime;
+
+                var amount = 150 * deltaTime;
+                for (var i = 0; i < amount; i++) {
+                    var pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random());
+                    var dir = {
+                        x: pos.x,
+                        y: pos.y
+                    };
+                    var length = Math.sqrt(dir.x * dir.x + dir.y * dir.y);
+                    dir.x /= length;
+                    dir.y /= length;
+                    dir.x *= 100;
+                    dir.y *= 100;
+                    heartParticles.add(heartCanvas.width / 2 + pos.x, heartCanvas.height / 2 - pos.y, dir.x, -dir.y);
+                }
+
+                heartParticles.update(deltaTime);
+                heartParticles.draw(heartCtx, heartImage);
+            }
+
+            // Update and draw regular fireworks
+            fireworks.forEach(firework => {
+                firework.update();
+                firework.draw();
+            });
+            fireworks = fireworks.filter(firework => firework.particles.length > 0);
+
+            // Random fireworks
+            if (Math.random() < 0.02 && heartAnimationStarted) {
+                createFirework();
+            }
+
+            requestAnimationFrame(animate);
+        }
 
         function createFirework() {
             const x = Math.random() * canvas.width;
@@ -324,28 +625,6 @@
             fireworks.push(new Firework(x, y));
         }
 
-        function animate() {
-            ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            fireworks.forEach(firework => {
-                firework.update();
-                firework.draw();
-            });
-            
-            fireworks = fireworks.filter(firework => firework.particles.length > 0);
-            
-            // Tạo pháo hoa ngẫu nhiên
-            if (Math.random() < 0.05) {
-                createFirework();
-            }
-            
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-
-        // Tạo trái tim bay
         function createFloatingHeart() {
             const heart = document.createElement('div');
             heart.className = 'floating-heart';
@@ -360,91 +639,16 @@
             }, 6000);
         }
 
-        // Tạo ngôi sao lấp lánh
-        function createSparkle() {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.style.left = Math.random() * 100 + '%';
-            sparkle.style.top = Math.random() * 100 + '%';
-            sparkle.style.animationDelay = Math.random() * 2 + 's';
-            document.getElementById('sparkles').appendChild(sparkle);
-            
-            setTimeout(() => {
-                sparkle.remove();
-            }, 2000);
-        }
-
-        // Tạo nốt nhạc bay
-        function createMusicNote() {
-            const notes = ['♪', '♫', '♬', '♭', '♮', '♯'];
-            const note = document.createElement('div');
-            note.className = 'music-note';
-            note.innerHTML = notes[Math.floor(Math.random() * notes.length)];
-            note.style.left = Math.random() * 100 + '%';
-            note.style.animationDelay = Math.random() * 3 + 's';
-            document.body.appendChild(note);
-            
-            setTimeout(() => {
-                note.remove();
-            }, 8000);
-        }
-
-        // Tạo hiệu ứng liên tục
-        setInterval(createFloatingHeart, 1000);
-        setInterval(createSparkle, 200);
-        setInterval(createMusicNote, 2000);
-
-        // Tạo pháo hoa khi click
-        canvas.addEventListener('click', (e) => {
-            fireworks.push(new Firework(e.clientX, e.clientY));
-        });
-
-        // Tự động tạo pháo hoa lớn mỗi 3 giây
-        setInterval(() => {
-            for (let i = 0; i < 3; i++) {
-                setTimeout(() => {
-                    createFirework();
-                }, i * 200);
-            }
-        }, 3000);
-
         // Responsive
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            heartCanvas.width = window.innerWidth;
+            heartCanvas.height = window.innerHeight;
         });
 
-        // Tạo hiệu ứng cực quang
-        function createAurora() {
-            const aurora = document.createElement('div');
-            aurora.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(45deg, 
-                    transparent 30%, 
-                    rgba(64, 224, 208, 0.1) 40%, 
-                    rgba(255, 107, 107, 0.1) 60%, 
-                    transparent 70%);
-                animation: aurora 10s ease-in-out infinite;
-                pointer-events: none;
-                z-index: 1;
-            `;
-            
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes aurora {
-                    0%, 100% { transform: translateX(-100%); }
-                    50% { transform: translateX(100%); }
-                }
-            `;
-            document.head.appendChild(style);
-            document.body.appendChild(aurora);
-        }
-
-        createAurora();
+        // Start animation
+        animate();
     </script>
 </body>
 </html>
