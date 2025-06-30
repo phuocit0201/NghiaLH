@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pháo Hoa Trái Tim</title>
     <style>
         * {
@@ -87,6 +87,47 @@
             animation: heartTextGlow 2s ease-in-out infinite alternate;
             z-index: 3;
             opacity: 0;
+        }
+
+        /* Responsive cho màn hình di động */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+                top: 8%;
+            }
+            
+            .heart-text {
+                font-size: 1.8rem;
+                width: 250px;
+                top: 45%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.5rem;
+                top: 5%;
+            }
+            
+            .heart-text {
+                font-size: 1.4rem;
+                width: 200px;
+                top: 48%;
+            }
+        }
+
+        /* Đặc biệt cho iPhone 13 và các màn hình tương tự */
+        @media (max-width: 390px) and (max-height: 844px) {
+            .title {
+                font-size: 1.3rem;
+                top: 3%;
+            }
+            
+            .heart-text {
+                font-size: 1.2rem;
+                width: 180px;
+                top: 50%;
+            }
         }
 
         @keyframes heartTextGlow {
@@ -529,22 +570,45 @@
         let heartTime;
 
         function pointOnHeart(t) {
+            // Scale based on screen size
+            let scale = 1;
+            if (window.innerWidth <= 390) {
+                scale = 0.6;  // iPhone 13 và màn hình nhỏ tương tự
+            } else if (window.innerWidth <= 480) {
+                scale = 0.7;  // Màn hình di động nhỏ
+            } else if (window.innerWidth <= 768) {
+                scale = 0.8;  // Tablet và di động lớn
+            }
+            
             return {
-                x: 160 * Math.pow(Math.sin(t), 3),
-                y: 130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25
+                x: 160 * Math.pow(Math.sin(t), 3) * scale,
+                y: (130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25) * scale
             };
         }
 
         function createHeartImage() {
             var canvas = document.createElement('canvas');
             var context = canvas.getContext('2d');
-            canvas.width = 30;
-            canvas.height = 30;
+            
+            // Responsive heart image size
+            let size = 30;
+            if (window.innerWidth <= 390) {
+                size = 20;  // iPhone 13
+            } else if (window.innerWidth <= 480) {
+                size = 24;  // Di động nhỏ
+            } else if (window.innerWidth <= 768) {
+                size = 27;  // Tablet
+            }
+            
+            canvas.width = size;
+            canvas.height = size;
 
             function to(t) {
                 var point = pointOnHeart(t);
-                point.x = 15 + point.x * 15 / 350;
-                point.y = 15 - point.y * 15 / 350;
+                const center = size / 2;
+                const scaleFactor = size / 2 / 350;
+                point.x = center + point.x * scaleFactor;
+                point.y = center - point.y * scaleFactor;
                 return point;
             }
 
@@ -567,7 +631,17 @@
         }
 
         function startHeartAnimation() {
-            heartParticles = new HeartParticlePool(300);
+            // Responsive particle count for performance
+            let particleCount = 300;
+            if (window.innerWidth <= 390) {
+                particleCount = 150;  // iPhone 13 - ít particles hơn
+            } else if (window.innerWidth <= 480) {
+                particleCount = 200;  // Di động nhỏ
+            } else if (window.innerWidth <= 768) {
+                particleCount = 250;  // Tablet
+            }
+            
+            heartParticles = new HeartParticlePool(particleCount);
             heartImage = createHeartImage();
             heartTime = new Date().getTime() / 1000;
             heartAnimationStarted = true;
@@ -576,7 +650,18 @@
         // Initialize stars
         function createStars() {
             stars = [];
-            for (let i = 0; i < 100; i++) {
+            
+            // Responsive star count
+            let starCount = 100;
+            if (window.innerWidth <= 390) {
+                starCount = 50;   // iPhone 13 - ít sao hơn
+            } else if (window.innerWidth <= 480) {
+                starCount = 60;   // Di động nhỏ
+            } else if (window.innerWidth <= 768) {
+                starCount = 80;   // Tablet
+            }
+            
+            for (let i = 0; i < starCount; i++) {
                 stars.push(new Star());
             }
         }
@@ -665,7 +750,17 @@
                 var deltaTime = newTime - heartTime;
                 heartTime = newTime;
 
-                var amount = 150 * deltaTime;
+                // Responsive particle generation rate
+                let baseAmount = 150;
+                if (window.innerWidth <= 390) {
+                    baseAmount = 80;   // iPhone 13
+                } else if (window.innerWidth <= 480) {
+                    baseAmount = 100;  // Di động nhỏ
+                } else if (window.innerWidth <= 768) {
+                    baseAmount = 120;  // Tablet
+                }
+                
+                var amount = baseAmount * deltaTime;
                 for (var i = 0; i < amount; i++) {
                     var pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random());
                     var dir = {
