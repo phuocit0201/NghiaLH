@@ -631,17 +631,7 @@
         }
 
         function startHeartAnimation() {
-            // Responsive particle count for performance
-            let particleCount = 300;
-            if (window.innerWidth <= 390) {
-                particleCount = 150;  // iPhone 13 - ít particles hơn
-            } else if (window.innerWidth <= 480) {
-                particleCount = 200;  // Di động nhỏ
-            } else if (window.innerWidth <= 768) {
-                particleCount = 250;  // Tablet
-            }
-            
-            heartParticles = new HeartParticlePool(particleCount);
+            heartParticles = new HeartParticlePool(300);
             heartImage = createHeartImage();
             heartTime = new Date().getTime() / 1000;
             heartAnimationStarted = true;
@@ -650,18 +640,7 @@
         // Initialize stars
         function createStars() {
             stars = [];
-            
-            // Responsive star count
-            let starCount = 100;
-            if (window.innerWidth <= 390) {
-                starCount = 50;   // iPhone 13 - ít sao hơn
-            } else if (window.innerWidth <= 480) {
-                starCount = 60;   // Di động nhỏ
-            } else if (window.innerWidth <= 768) {
-                starCount = 80;   // Tablet
-            }
-            
-            for (let i = 0; i < starCount; i++) {
+            for (let i = 0; i < 100; i++) {
                 stars.push(new Star());
             }
         }
@@ -750,17 +729,7 @@
                 var deltaTime = newTime - heartTime;
                 heartTime = newTime;
 
-                // Responsive particle generation rate
-                let baseAmount = 150;
-                if (window.innerWidth <= 390) {
-                    baseAmount = 80;   // iPhone 13
-                } else if (window.innerWidth <= 480) {
-                    baseAmount = 100;  // Di động nhỏ
-                } else if (window.innerWidth <= 768) {
-                    baseAmount = 120;  // Tablet
-                }
-                
-                var amount = baseAmount * deltaTime;
+                var amount = 150 * deltaTime;
                 for (var i = 0; i < amount; i++) {
                     var pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random());
                     var dir = {
